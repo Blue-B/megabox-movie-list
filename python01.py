@@ -8,6 +8,9 @@ res.raise_for_status()
 soup = BeautifulSoup(res.text, "lxml")
 
 movie_section = soup.find_all("th", attrs={"scope":"row"})
-
-for movie_list in movie_section: 
-    print(movie_list.a.get_text())
+timeinfo = soup.find_all("td", attrs={"class":"time"} ) #상영시간표들 timeinfo변수에넣음
+for idx,sections in enumerate(movie_section,start=0):
+    print(sections.a.get_text()) #영화제목
+    print('>'+sections.find("span").get_text()) #영화등급
+    print(timeinfo[idx].get_text()) #상영시간표
+    print(' ')#공백
